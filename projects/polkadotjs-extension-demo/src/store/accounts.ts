@@ -1,7 +1,7 @@
 import type { ComputedRef } from 'vue';
 import { createStore } from '@harlem/core';
 
-import { Account } from '../services';
+import { Account } from '../services/extension';
 import storage from '../utils/storage';
 
 interface State {
@@ -22,15 +22,13 @@ export const checkAuthorization = (accounts: ComputedRef<readonly Account[] | nu
   return accounts !== null
 };
 
-export const updateUser = mutation<Account[] | null>('updateAccounts', (state, accountsData) => {
+export const updateAccounts = mutation<Account[] | null>('updateAccounts', (state, accountsData) => {
   if (accountsData === undefined || accountsData === null) {
     storage.remove('accounts');
-    // TODO: disconnect from extension?
     state.accounts = null;
     return;
   }
 
   storage.set('accounts', accountsData);
-  // TODO: Authorise extension and retrieve accounts
   state.accounts = accountsData;
 });
