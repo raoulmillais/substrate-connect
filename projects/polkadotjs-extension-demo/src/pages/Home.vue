@@ -20,11 +20,15 @@
             Allow acces to the PolkadotJS extension
           </template>
           <template #content>
-            <Button class="p-button-text p-button-raised" label="Connect" @click="connect" /> <ul class="error-messages">
+            <Button v-if="!isConnected" class="p-button-text p-button-raised" label="Connect" @click="connectExtension" />
+            <p v-else>There are {{accounts.length}} accounts</p>
+            <!--
+            <ul>
               <li v-for="error in errors">
-                {{ error }}
+                /* TODO */
               </li>
             </ul>
+            -->
           </template>
         </Card>
       </div>
@@ -35,32 +39,15 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
+import { mapGetters, mapActions } from 'vuex'
 import { enable } from '../services/extension';
 import { updateAccounts } from '../store/accounts';
 import { routerPush } from '../router';
 
 export default defineComponent({
   name: 'HomePage',
-  components: { },
-  setup() {
-    const errors = ref<string[]>([]);
-
-    const connect = async () => {
-      const result = await enable();
-
-      if (result.ok) {
-        updateAccounts(result.value);
-        await routerPush('home');
-      } else {
-        errors.value = ['No extension installed or was not authorised by user.'];
-      }
-    };
-
-    return {
-      connect,
-      errors,
-    };
-  }
-})
+  computed: mapGetters(['isConnected', 'accounts']),
+  methods: mapActions(['connectExtension']),
+});
 </script>
 

@@ -9,9 +9,9 @@
 
 <script lang="ts">
 import { defineComponent, computed } from 'vue';
+import { mapGetters, mapState } from 'vuex'
 import type { RouterView, RouteParams } from 'vue-router';
 import type { AppRouteNames } from '../router';
-import { accounts } from '../store/accounts';
 
 interface NavLink {
   name: AppRouteNames
@@ -21,49 +21,51 @@ interface NavLink {
   display: 'all' | 'anonym' | 'authorized'
 };
 
+const links = [
+  {
+    name: 'home',
+    label: 'Home',
+    to: '/',
+    display: 'all',
+    icon: 'pi pi-fw pi-home',
+  },
+  {
+    name: 'console',
+    label: 'Console',
+    to: '/console',
+    display: 'all',
+    icon: 'pi pi-fw pi-inbox',
+  },
+  /*
+  {
+    name: 'accounts',
+    label: 'Accounts',
+    to: '/accounts',
+    display: 'isConnected',
+    icon: 'wallet',
+  },
+  {
+    name: 'transactions',
+    label: 'Transactions',
+    to: '/transactions',
+    display: 'authorized',
+    icon: 'cash',
+  },
+  */
+];
+
 export default defineComponent({
   name: 'AppNavigation',
-  setup () {
-    const displayStatus = computed(() => accounts.length ? 'authorized' : 'anonym');
-    const allNavLinks = computed<NavLink[]>(() => [
-      {
-        name: 'home',
-        label: 'Home',
-        to: '/',
-        display: 'all',
-        icon: 'pi pi-fw pi-home',
+  computed: {
+    ...mapState({
+      items: state => {
+        if (state.isConnected) {
+          return links;
+        }
+        return links.filter(l => l.display === 'all');
       },
-      {
-        name: 'console',
-        label: 'Console',
-        to: '/console',
-        display: 'all',
-        icon: 'pi pi-fw pi-inbox',
-      },
-      /*
-      {
-        name: 'accounts',
-        label: 'Accounts',
-        to: '/accounts',
-        display: 'authorized',
-        icon: 'wallet',
-      },
-      {
-        name: 'transactions',
-        label: 'Transactions',
-        to: '/transactions',
-        display: 'authorized',
-        icon: 'cash',
-      },
-      */
-    ]);
-
-    const items = computed(() => allNavLinks.value.filter(
-      l => l.display === displayStatus.value || l.display === 'all',
-    ));
-    return {
-      items,
-    };
+    }),
+    ...mapGetters(['isConnected', 'accounts']),
   },
 });
 </script>
