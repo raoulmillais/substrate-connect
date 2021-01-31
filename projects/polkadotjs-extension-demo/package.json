@@ -29,6 +29,9 @@
     "@harlem/core": "1.0.17",
     "@polkadot/extension-dapp": "^0.36.1",
     "@substrate/smoldot-provider": "0.0.1",
+    "primeflex": "^2.0.0",
+    "primeicons": "^4.1.0",
+    "primevue": "^3.2.0-rc.1",
     "regenerator-runtime": "^0.13.7",
     "vue": "^3.0.5",
     "vue-router": "^4.0.3"

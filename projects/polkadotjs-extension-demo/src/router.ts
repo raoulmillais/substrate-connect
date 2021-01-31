@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory, RouteParams } from 'vue-router';
+import { createRouter, createWebHistory, RouteParams } from 'vue-router';
 import Home from './pages/Home.vue';
 import Console from './pages/Console.vue';
 
@@ -8,7 +8,7 @@ export type AppRouteNames = 'home'
 | 'transactions';
 
 export const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes: [
     {
       name: 'home',

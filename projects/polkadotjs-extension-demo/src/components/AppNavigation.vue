@@ -1,39 +1,15 @@
 <template>
-  <nav class="navbar navbar-light">
-    <div class="container">
-      <AppLink
-        class="navbar-brand"
-        name="home"
-      >
-        PolkadotJS Extension Demo
-      </AppLink>
-
-      <ul class="nav navbar-nav pull-xs-right">
-        <li
-          v-for="link in navLinks"
-          :key="link.name"
-          class="nav-item"
-        >
-          <AppLink
-            class="nav-link"
-            active-class="active"
-            :name="link.name"
-            :params="link.params"
-          >
-            <i
-              v-if="link.icon"
-              :class="link.icon"
-            /> {{ link.title }}
-          </AppLink>
-        </li>
-      </ul>
-    </div>
-  </nav>
+<div class="container p-component">
+  <h1>
+    Polkadot JS Extension Demo
+  </h1>
+  <TabMenu :model="items" />
+</div>
 </template>
 
 <script lang="ts">
 import { defineComponent, computed } from 'vue';
-import type { RouteParams } from 'vue-router';
+import type { RouterView, RouteParams } from 'vue-router';
 import type { AppRouteNames } from '../router';
 import { accounts } from '../store/accounts';
 
@@ -48,42 +24,45 @@ interface NavLink {
 export default defineComponent({
   name: 'AppNavigation',
   setup () {
-    const username = computed(() => user.value?.username);
     const displayStatus = computed(() => accounts.length ? 'authorized' : 'anonym');
     const allNavLinks = computed<NavLink[]>(() => [
       {
         name: 'home',
-        title: 'Home',
+        label: 'Home',
+        to: '/',
         display: 'all',
-        icon: 'home',
+        icon: 'pi pi-fw pi-home',
       },
       {
         name: 'console',
-        title: 'Console',
+        label: 'Console',
+        to: '/console',
         display: 'all',
-        icon: 'pulse',
+        icon: 'pi pi-fw pi-inbox',
       },
       /*
       {
         name: 'accounts',
-        title: 'Accounts',
+        label: 'Accounts',
+        to: '/accounts',
         display: 'authorized',
         icon: 'wallet',
       },
       {
         name: 'transactions',
-        title: 'Transactions',
+        label: 'Transactions',
+        to: '/transactions',
         display: 'authorized',
         icon: 'cash',
       },
       */
     ]);
 
-    const navLinks = computed(() => allNavLinks.value.filter(
+    const items = computed(() => allNavLinks.value.filter(
       l => l.display === displayStatus.value || l.display === 'all',
     ));
     return {
-      navLinks,
+      items,
     };
   },
 });

@@ -1,12 +1,7 @@
 <template>
   <footer>
-    <div class="container">
-      <AppLink
-        name="home"
-        class="logo-font"
-      >
-        conduit
-      </AppLink>
+    <div class="p-col p-component">
+      <router-link to="/">PolkadotJS Extension Demo</router-link>
       <span class="attribution">
         A substrate browser demo by  <a href="https://parity.io">Parity</a>. Code &amp; design licensed under Apache 2.
       </span>

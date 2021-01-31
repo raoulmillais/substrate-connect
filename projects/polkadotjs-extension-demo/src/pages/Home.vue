@@ -1,33 +1,34 @@
 <template>
-  <div class="home-page">
-    <div class="banner">
-      <div class="container">
-        <h1 class="logo-font">
-          Polkadot JS Extension Demo
-        </h1>
-        <p>A place to monitor your westend accounts.</p>
-      </div>
-    </div>
+  <div class="home-page p-grid">
+    <div class="p-col">
 
-    <div class="container page">
-      <div class="row">
-        <div class="col-md-9">
-          <p>
+      <div class="p-row p-m-2">
+        <Card>
+          <template #title>
+            Introduction
+          </template>
+          <template #content>
             This is a demo app using VueJS that interacts with PolkadotJS extension
             and the Westend blockchain allowing you to view transaction histories.
-          </p>
-          <ul class="error-messages">
-            <li v-for="error in errors">
-              {{ error }}
-            </li>
-          </ul>
-          <form @submit.prevent="connect">
-            <button class="btn btn-lg btn-primary pull-xs-right" type="submit">
-                Connect to PolkadotJS Extension
-            </button>
-          </form>
-        </div>
+          </template>
+        </Card>
       </div>
+
+      <div class="p-row p-m-2">
+        <Card>
+          <template #title>
+            Allow acces to the PolkadotJS extension
+          </template>
+          <template #content>
+            <Button class="p-button-text p-button-raised" label="Connect" @click="connect" /> <ul class="error-messages">
+              <li v-for="error in errors">
+                {{ error }}
+              </li>
+            </ul>
+          </template>
+        </Card>
+      </div>
+
     </div>
   </div>
 </template>
