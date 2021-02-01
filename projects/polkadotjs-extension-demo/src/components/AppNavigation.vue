@@ -1,5 +1,6 @@
 <template>
 <div class="container p-component">
+  <img src="/assets/polkadot.png" />
   <h1>
     Polkadot JS Extension Demo
   </h1>
@@ -36,7 +37,6 @@ const links = [
     display: 'all',
     icon: 'pi pi-fw pi-inbox',
   },
-  /*
   {
     name: 'accounts',
     label: 'Accounts',
@@ -44,6 +44,7 @@ const links = [
     display: 'isConnected',
     icon: 'wallet',
   },
+  /*
   {
     name: 'transactions',
     label: 'Transactions',
@@ -59,7 +60,7 @@ export default defineComponent({
   computed: {
     ...mapState({
       items: state => {
-        if (state.isConnected) {
+        if (state.accounts !== null) {
           return links;
         }
         return links.filter(l => l.display === 'all');

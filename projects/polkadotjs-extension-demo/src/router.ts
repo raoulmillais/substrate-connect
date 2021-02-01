@@ -1,6 +1,9 @@
 import { createRouter, createWebHistory, RouteParams } from 'vue-router';
 import Home from './pages/Home.vue';
 import Console from './pages/Console.vue';
+import Accounts from './pages/Accounts.vue';
+import Transactions from './pages/Transactions.vue';
+import Transaction from './pages/Transaction.vue';
 
 export type AppRouteNames = 'home'
 | 'console'
@@ -20,23 +23,21 @@ export const router = createRouter({
       path: '/console',
       component: Console,
     },
-    /*
     {
       name: 'accounts',
       path: '/accounts',
-      component: () => import('./pages/Accounts.vue'),
+      component: Accounts,
     },
     {
       name: 'transactions',
       path: '/transactions/:account',
-      component: () => import('./pages/Transactions.vue'),
+      component: () => Transactions,
     },
     {
       name: 'transaction',
       path: '/transaction/:hash',
-      component: () => import('./pages/Transaction.vue'),
+      component: () => Transaction,
     },
-   */
   ],
 });
 
